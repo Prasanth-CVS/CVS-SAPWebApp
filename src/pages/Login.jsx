@@ -14,18 +14,23 @@ import {
   Typography,
   Snackbar,
   Alert,
+  Autocomplete,
 } from "@mui/material";
 import { Visibility, VisibilityOff, AccountCircle } from "@mui/icons-material";
-import cvsBckImage from "../assets/logo/kanban_screen.png";
-import cvsBckImage1 from "../assets/logo/kanban_screen1.png";
-import cvsBckImage2 from "../assets/logo/kanban_screen2.jpg";
-import cvsBckImage3 from "../assets/logo/original.png";
-import cvsBckImage4 from "../assets/logo/4th image.png";
+import image1 from "../assets/logo/image_1.png";
 import { useNavigate } from "react-router-dom";
 
 const KanbanLogin = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ emailID: "", password: "" });
+
+  const [formData, setFormData] = useState({
+    companyName: "",
+    dbName: "",
+    emailID: "",
+    password: "",
+  });
+
+  const [companyOptions, setCompanyOptions] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [alert, setAlert] = useState({
@@ -34,72 +39,134 @@ const KanbanLogin = () => {
     severity: "success",
   });
 
-  const roundedTextField = {
-    "& .MuiOutlinedInput-root": {
-      borderRadius: "4px",
-    },
-  };
-
   useEffect(() => {
-    const storedEmail = localStorage.getItem("emailID");
-    const storedPassword = localStorage.getItem("password");
-    const expiry = localStorage.getItem("loginExpiry");
-    if (
-      storedEmail &&
-      storedPassword &&
-      expiry &&
-      Date.now() < parseInt(expiry)
-    ) {
-      setFormData({ emailID: storedEmail, password: storedPassword });
-      setRememberMe(true);
-    } else {
-      localStorage.removeItem("emailID");
-      localStorage.removeItem("password");
-      localStorage.removeItem("loginExpiry");
+    const sessionData =
+      sessionStorage.getItem("loginSession") ||
+      localStorage.getItem("loginSession");
+
+    if (sessionData) {
+      try {
+        const { timestamp } = JSON.parse(sessionData);
+        const now = new Date().getTime();
+        const maxAge = 3 * 60 * 1000; // 3 minutes
+
+        if (now - timestamp < maxAge) {
+          navigate("/app/home");
+        } else {
+          sessionStorage.removeItem("loginSession");
+          localStorage.removeItem("loginSession");
+        }
+      } catch (err) {
+        console.error("Invalid session data", err);
+        sessionStorage.removeItem("loginSession");
+        localStorage.removeItem("loginSession");
+      }
     }
-  }, []);
+
+    const fetchCompanies = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5145/api/DBList/Database"
+        );
+        const result = await response.json();
+        const dbNames = result.map((item) => item.dbName);
+        setCompanyOptions(dbNames);
+      } catch (error) {
+        setAlert({
+          open: true,
+          message: "Company list fetch failed!",
+          severity: "error",
+        });
+      }
+    };
+
+    fetchCompanies();
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleRememberMe = (e) => {
-    const checked = e.target.checked;
-    setRememberMe(checked);
-    if (!checked) {
-      localStorage.removeItem("emailID");
-      localStorage.removeItem("password");
-      localStorage.removeItem("loginExpiry");
-    }
+  const handleCompanyChange = (event, value) => {
+    setFormData({ ...formData, companyName: value, dbName: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleRememberMe = (e) => {
+    setRememberMe(e.target.checked);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.emailID || !formData.password) {
+
+    const { companyName, emailID, password } = formData;
+
+    if (!companyName || !emailID || !password) {
       setAlert({
         open: true,
-        message: "Please enter Email and Password",
+        message: "Please fill in all fields",
         severity: "error",
       });
       return;
     }
-    if (rememberMe) {
-      const expiryTime = Date.now() + 5 * 60 * 1000;
-      localStorage.setItem("emailID", formData.emailID);
-      localStorage.setItem("password", formData.password);
-      localStorage.setItem("loginExpiry", expiryTime.toString());
+
+    try {
+      const queryParams = new URLSearchParams({
+        username: emailID,
+        password: password,
+        database: companyName,
+      });
+
+      const response = await fetch(
+        `http://localhost:5145/api/DBList/CompanyLogin?${queryParams.toString()}`,
+        {
+          method: "GET",
+        }
+      );
+
+      const resultText = await response.text();
+      console.log("Login response:", resultText);
+
+      if (resultText === "Success") {
+        const sessionPayload = {
+          email: emailID,
+          company: companyName,
+          timestamp: new Date().getTime(),
+        };
+
+        const storage = rememberMe ? localStorage : sessionStorage;
+        storage.setItem("loginSession", JSON.stringify(sessionPayload));
+
+        setAlert({
+          open: true,
+          message: "Login successful!",
+          severity: "success",
+        });
+
+        setTimeout(() => {
+          navigate("/app/home");
+        }, 1000);
+      } else {
+        setAlert({
+          open: true,
+          message: "Login failed!",
+          severity: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+      setAlert({
+        open: true,
+        message: "Login failed! Try again later.",
+        severity: "error",
+      });
     }
-    setAlert({ open: true, message: "Login Successful", severity: "success" });
-    setTimeout(() => {
-      navigate("/app/home");
-    }, 1000);
   };
 
   return (
     <Box>
       <Box>
         <img
-          src={cvsBckImage}
+          src={image1}
           alt="Logo"
           style={{
             width: "100%",
@@ -108,8 +175,8 @@ const KanbanLogin = () => {
           }}
         />
       </Box>
+
       <Box sx={{ height: "100vh" }}>
-        {/* Right fixed login box */}
         <Box
           sx={{
             position: "fixed",
@@ -120,7 +187,6 @@ const KanbanLogin = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            opacity: 1, // Opacity for the right box
           }}
         >
           <Paper
@@ -130,8 +196,8 @@ const KanbanLogin = () => {
               width: "100%",
               mx: 2,
               position: "relative",
-              opacity: 0.85, // Set opacity of the CardView (Paper)
-              backgroundColor: "white", // White background under opacity
+              opacity: 0.85,
+              backgroundColor: "white",
             }}
           >
             <AccountCircle
@@ -141,10 +207,32 @@ const KanbanLogin = () => {
                 position: "absolute",
                 top: -38,
                 left: "calc(50% - 35px)",
-                color: "#58709aff",
+                color: "#080008ff",
               }}
             />
             <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
+              <Autocomplete
+                fullWidth
+                options={companyOptions}
+                value={formData.companyName}
+                onChange={handleCompanyChange}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Database Name"
+                    margin="normal"
+                    InputLabelProps={{ style: { fontSize: "14px" } }}
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: {
+                        height: "40px",
+                        fontSize: "14px",
+                      },
+                    }}
+                  />
+                )}
+              />
+
               <TextField
                 fullWidth
                 label="Email ID"
@@ -152,21 +240,15 @@ const KanbanLogin = () => {
                 value={formData.emailID}
                 onChange={handleChange}
                 margin="normal"
-                InputLabelProps={{
-                  style: { fontSize: "14px" },
-                }}
+                InputLabelProps={{ style: { fontSize: "14px" } }}
                 InputProps={{
                   sx: {
                     height: "40px",
                     fontSize: "14px",
-                    "& input": {
-                      height: "45px",
-                      padding: "0 8px",
-                      roundedTextField,
-                    },
                   },
                 }}
               />
+
               <FormControl fullWidth margin="normal" variant="outlined">
                 <InputLabel sx={{ fontSize: "14px", top: "-6px" }}>
                   Password
@@ -191,11 +273,6 @@ const KanbanLogin = () => {
                   sx={{
                     height: "40px",
                     fontSize: "14px",
-                    roundedTextField,
-                    "& input": {
-                      height: "45px",
-                      padding: "0 8px",
-                    },
                   }}
                 />
               </FormControl>

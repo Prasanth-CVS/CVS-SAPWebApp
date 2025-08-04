@@ -22,19 +22,22 @@ import {
   Divider,
   Button,
   Snackbar,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import Reorder from "@mui/icons-material/Reorder";
+import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchBranchList,
   setSelectedBranch,
 } from "../store/actions/branchAction";
-// Replace with your actual Snackbar alert component!
 import SnackbarAlert from "../components/shared/SnackbarAlert";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({
   toggleDrawer,
@@ -42,33 +45,31 @@ const Header = ({
   rendorIcon = false,
   drawerWidth = 230,
   isSideIcon = false,
-  userName = "User",
+  userName
 }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [notifAnchor, setNotifAnchor] = useState(null);
   const [menuAnchor, setMenuAnchor] = useState(null);
-
-  // Popover state
   const [anchorEl, setAnchorEl] = useState(null);
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
+
   const open = Boolean(anchorEl);
 
-  // Snackbar state
   const [snackOpen, setSnackOpen] = useState(false);
   const [message, setMessage] = useState("");
 
-  // Entity/branch state
   const { selectedBranchId, branchList } = useSelector((state) => state.branch);
   const [defaultEntityId, setDefaultEntityId] = useState(null);
 
-  // Find selected entity for display
   const defaultEntity = branchList?.find((e) => e.entityId === defaultEntityId);
 
   useEffect(() => {
     dispatch(fetchBranchList());
   }, [dispatch]);
 
-  // Handler functions for Popover
   const handleOpenPopover = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -76,22 +77,26 @@ const Header = ({
     setAnchorEl(null);
   };
 
-  // Radio handler: set as default
   const handleRadioChange = (item) => {
     setDefaultEntityId(item.entityId);
   };
 
-  // Confirm selection
   const handleConfirm = () => {
     handleClosePopover();
     setMessage("Default entity updated!");
     setSnackOpen(true);
-    // Optionally dispatch to Redux
-    if (defaultEntityId) {
-      // dispatch(setSelectedBranch(defaultEntityId)); // If your Redux expects this
-    }
+    // If Redux store is to be updated:
+    // dispatch(setSelectedBranch(defaultEntityId));
   };
+
   const handleSnackClose = () => setSnackOpen(false);
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("loginSession");
+    localStorage.removeItem("loginSession");
+    setLogoutDialogOpen(false);
+    navigate("/");
+  };
 
   const iconButtonStyle = {
     p: 1,
@@ -99,6 +104,7 @@ const Header = ({
     cursor: "pointer",
     "&:hover": { backgroundColor: "#e0e0e0", color: "#050e60" },
   };
+
   const drawerIconWidth = 75;
 
   return (
@@ -125,41 +131,18 @@ const Header = ({
               </Box>
             ) : (
               <Box sx={iconButtonStyle} onClick={toggleDrawerClose}>
-                <Reorder />
+                <MenuIcon />
               </Box>
             )}
           </Box>
 
           <Box display="flex" alignItems="center" gap={2}>
-            {/* Notifications */}
             <IconButton onClick={(e) => setNotifAnchor(e.currentTarget)}>
               <Badge badgeContent={5} color="error">
                 <NotificationsNoneIcon />
               </Badge>
             </IconButton>
 
-            {/* Entity selection (opens pop) */}
-            <Box
-              display="flex"
-              alignItems="center"
-              sx={{ cursor: "pointer" }}
-              onClick={handleOpenPopover}
-            >
-              <PlaceOutlinedIcon />
-              <Typography
-                variant="body2"
-                sx={{
-                  ml: 0.5,
-                  fontWeight: 600,
-                  color: "#050e60",
-                  textTransform: "capitalize",
-                }}
-              >
-                {defaultEntity ? defaultEntity.entityName : ""}
-              </Typography>
-            </Box>
-
-            {/* User Avatar */}
             <Avatar
               sx={{
                 bgcolor: "transparent",
@@ -175,13 +158,14 @@ const Header = ({
             >
               {userName?.charAt(0)?.toUpperCase() || ""}
             </Avatar>
+
             <Menu
               anchorEl={menuAnchor}
               open={Boolean(menuAnchor)}
               onClose={() => setMenuAnchor(null)}
             >
               <MenuItem>Profile</MenuItem>
-              <MenuItem>Logout</MenuItem>
+              <MenuItem onClick={() => setLogoutDialogOpen(true)}>Logout</MenuItem>
             </Menu>
           </Box>
         </Toolbar>
@@ -258,6 +242,22 @@ const Header = ({
         severity="success"
         message={message}
       />
+
+      {/* Logout Confirmation Dialog */}
+      <Dialog open={logoutDialogOpen} onClose={() => setLogoutDialogOpen(false)}>
+        <DialogTitle>Logout</DialogTitle>
+        <DialogContent>
+          <Typography variant="body2">Are you sure you want to logout?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setLogoutDialogOpen(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleLogout} color="error">
+            Logout
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

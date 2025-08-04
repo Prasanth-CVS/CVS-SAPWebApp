@@ -131,139 +131,139 @@ const SideBar = ({ isSideIcon }) => {
       : allChild;
 
   const menuDetails = [
-    {
-      roles: [1, 2, 4, 5, 6],
-      headName: "Home",
-      homeIcon: <AddHomeWorkOutlinedIcon />,
-      route: "/app/Dashboard",
-      childName: [],
-    },
+    // {
+    //   roles: [1, 2, 4, 5, 6],
+    //   headName: "Home",
+    //   homeIcon: <AddHomeWorkOutlinedIcon />,
+    //   route: "/app/Dashboard",
+    //   childName: [],
+    // },
     {
       roles: [1, 2, 4, 5, 6],
       headName: "Masters",
       homeIcon: <AutoAwesomeMosaicOutlinedIcon />,
       childName: [
-        { name: "BOM", route: "/app/bom", iconMenu: <ReceiptOutlined /> },
+        // { name: "BOM", route: "/app/bom", iconMenu: <ReceiptOutlined /> },
         { name: "Item Master", route: "/app/itemmaster", iconMenu: <Domain /> },
+        // {
+        //   name: "Location Master",
+        //   route: "/app/lineMaster",
+        //   iconMenu: <LocationCity />,
+        // },
         {
-          name: "Location Master",
-          route: "/app/lineMaster",
-          iconMenu: <LocationCity />,
-        },
-        {
-          name: "Supplier Master",
-          route: "/app/suppliermaster",
+          name: "Business Partner Master",
+          route: "/app/bpmaster",
           iconMenu: <GroupWork />,
         },
-        {
-          name: "Stock Status",
-          route: "/app/stockStatus",
-          iconMenu: <ContactSupportOutlined />,
-        },
-        {
-          name: "Direct Plan mapping",
-          route: "/app/roughPlanning",
-          iconMenu: <GroupOutlined />,
-        },
-        {
-          name: "Shift Allocation",
-          route: "/app/shiftAllocation",
-          iconMenu: <FilterTiltShiftTwoTone />,
-        },
-        {
-          name: "Shift Planning",
-          route: "/app/shiftCalcItem",
-          iconMenu: <GroupOutlined />,
-        },
+        // {
+        //   name: "Stock Status",
+        //   route: "/app/stockStatus",
+        //   iconMenu: <ContactSupportOutlined />,
+        // },
+        // {
+        //   name: "Direct Plan mapping",
+        //   route: "/app/roughPlanning",
+        //   iconMenu: <GroupOutlined />,
+        // },
+        // {
+        //   name: "Shift Allocation",
+        //   route: "/app/shiftAllocation",
+        //   iconMenu: <FilterTiltShiftTwoTone />,
+        // },
+        // {
+        //   name: "Shift Planning",
+        //   route: "/app/shiftCalcItem",
+        //   iconMenu: <GroupOutlined />,
+        // },
       ],
     },
-    {
-      roles: [1, 2, 4, 5, 6],
-      headName: "Kanban Board",
-      homeIcon: <TvOutlinedIcon />,
-      childName: allSubMenu,
-    },
-    {
-      roles: [1, 2, 4, 5, 6],
-      headName: "Analytics",
-      homeIcon: <AnalyticsOutlinedIcon />,
-      childName: [
-        {
-          name: "Planning Dashboard",
-          route: "/app/PlanningDashboard",
-          iconMenu: <DashboardSharp />,
-        },
-        {
-          name: "FG Dashboard",
-          route: "/app/FGDashboard",
-          iconMenu: <DashboardOutlined />,
-        },
-      ],
-    },
-    {
-      roles: [1, 2, 4, 5, 6],
-      headName: "Internal Supplier",
-      homeIcon: <PersonOutlinedIcon />,
-      route: "",
-      childName: [
-        {
-          name: "Internal Supplier Plans",
-          route: "/app/InternalSupplier",
-          iconMenu: <GroupWorkOutlined />,
-        },
-        {
-          name: "Internal Supplier Stock Status",
-          route: "/app/InternalSupplierStock",
-          iconMenu: <GroupWorkOutlined />,
-        },
-      ],
-    },
-    {
-      roles: [3, 1, 2, 4, 5],
-      headName: "Supplier Portal",
-      homeIcon: <PersonOutlinedIcon />,
-      route: "",
-      childName: [
-        {
-          name: "Supplier View",
-          route: "/app/SupplierDemandPlan",
-          iconMenu: <GroupTwoTone />,
-        },
-        {
-          name: "Stock",
-          route: "/app/SupplierStockStatus",
-          iconMenu: <ContactSupportOutlined />,
-        },
-      ],
-    },
-    {
-      roles: [1, 2, 4, 5, 6],
-      headName: "Settings",
-      homeIcon: <SettingsSuggestOutlinedIcon />,
-      route: "",
-      childName: [
-        {
-          name: "User Admin",
-          route: "/app/user",
-          iconMenu: <SupervisedUserCircleOutlined />,
-        },
-        {
-          name: "Work Flow",
-          route: "/app/workflow",
-          iconMenu: <DeviceHubRounded />,
-        },
-        {
-          name: "Aduit Log",
-          route: "/app/auditlog",
-          iconMenu: <VerifiedUserRounded />,
-        },
-        {
-          name: "Entity",
-          route: "/app/entity",
-          iconMenu: <BrandingWatermark />,
-        },
-      ],
-    },
+    // {
+    //   roles: [1, 2, 4, 5, 6],
+    //   headName: "Kanban Board",
+    //   homeIcon: <TvOutlinedIcon />,
+    //   childName: allSubMenu,
+    // },
+    // {
+    //   roles: [1, 2, 4, 5, 6],
+    //   headName: "Analytics",
+    //   homeIcon: <AnalyticsOutlinedIcon />,
+    //   childName: [
+    //     {
+    //       name: "Planning Dashboard",
+    //       route: "/app/PlanningDashboard",
+    //       iconMenu: <DashboardSharp />,
+    //     },
+    //     {
+    //       name: "FG Dashboard",
+    //       route: "/app/FGDashboard",
+    //       iconMenu: <DashboardOutlined />,
+    //     },
+    //   ],
+    // },
+    // {
+    //   roles: [1, 2, 4, 5, 6],
+    //   headName: "Internal Supplier",
+    //   homeIcon: <PersonOutlinedIcon />,
+    //   route: "",
+    //   childName: [
+    //     {
+    //       name: "Internal Supplier Plans",
+    //       route: "/app/InternalSupplier",
+    //       iconMenu: <GroupWorkOutlined />,
+    //     },
+    //     {
+    //       name: "Internal Supplier Stock Status",
+    //       route: "/app/InternalSupplierStock",
+    //       iconMenu: <GroupWorkOutlined />,
+    //     },
+    //   ],
+    // },
+    // {
+    //   roles: [3, 1, 2, 4, 5],
+    //   headName: "Supplier Portal",
+    //   homeIcon: <PersonOutlinedIcon />,
+    //   route: "",
+    //   childName: [
+    //     {
+    //       name: "Supplier View",
+    //       route: "/app/SupplierDemandPlan",
+    //       iconMenu: <GroupTwoTone />,
+    //     },
+    //     {
+    //       name: "Stock",
+    //       route: "/app/SupplierStockStatus",
+    //       iconMenu: <ContactSupportOutlined />,
+    //     },
+    //   ],
+    // },
+    // {
+    //   roles: [1, 2, 4, 5, 6],
+    //   headName: "Settings",
+    //   homeIcon: <SettingsSuggestOutlinedIcon />,
+    //   route: "",
+    //   childName: [
+    //     {
+    //       name: "User Admin",
+    //       route: "/app/user",
+    //       iconMenu: <SupervisedUserCircleOutlined />,
+    //     },
+    //     {
+    //       name: "Work Flow",
+    //       route: "/app/workflow",
+    //       iconMenu: <DeviceHubRounded />,
+    //     },
+    //     {
+    //       name: "Aduit Log",
+    //       route: "/app/auditlog",
+    //       iconMenu: <VerifiedUserRounded />,
+    //     },
+    //     {
+    //       name: "Entity",
+    //       route: "/app/entity",
+    //       iconMenu: <BrandingWatermark />,
+    //     },
+    //   ],
+    // },
   ];
 
   const filteredMenuItems = menuDetails.filter((menu) => {
