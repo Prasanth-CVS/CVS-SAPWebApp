@@ -22,8 +22,8 @@ const AppRoutes = () => (
         <Route path="/about" element={<About />} />
         <Route path="/app/user" element={<User />} />
         <Route path="/app/itemMaster" element={<ItemListPage />} />
-        <Route path="/app/supplierMaster" element={<SupplierListPage />} />
-        <Route path="/app/stockStatus" element={<StockStatus />} />
+        <Route path="/app/bpmaster" element={<SupplierListPage />} />
+        {/* <Route path="/app/stockStatus" element={<StockStatus />} /> */}
       </Route>
 
       {/* 404 Fallback */}

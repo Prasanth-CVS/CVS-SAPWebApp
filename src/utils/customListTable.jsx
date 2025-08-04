@@ -2,6 +2,7 @@ import React, { useState, useMemo, useLayoutEffect } from "react";
 import { Box, TextField, Autocomplete } from "@mui/material";
 import DataTable from "react-data-table-component";
 import { customStyles } from "../styles/commanStyles";
+import "../styles/covalsys.css"; // Assuming you have some custom styles for the table
 
 const CustomListTable = ({
   title,
