@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff, AccountCircle } from "@mui/icons-material";
 import image1 from "../assets/logo/image_1.png";
+import cvsBackImage from "../assets/logo/image 1.png"
 import { useNavigate } from "react-router-dom";
 
 const KanbanLogin = () => {
@@ -66,7 +67,7 @@ const KanbanLogin = () => {
     const fetchCompanies = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5145/api/DBList/Database"
+          "http://localhost:5146/api/DBList/Database"
         );
         const result = await response.json();
         const dbNames = result.map((item) => item.dbName);
@@ -117,7 +118,7 @@ const KanbanLogin = () => {
       });
 
       const response = await fetch(
-        `http://localhost:5145/api/DBList/CompanyLogin?${queryParams.toString()}`,
+        `http://localhost:5146/api/DBList/CompanyLogin?${queryParams.toString()}`,
         {
           method: "GET",
         }
@@ -166,7 +167,7 @@ const KanbanLogin = () => {
     <Box>
       <Box>
         <img
-          src={image1}
+          src={cvsBackImage}
           alt="Logo"
           style={{
             width: "100%",
