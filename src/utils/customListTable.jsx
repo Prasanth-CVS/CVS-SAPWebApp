@@ -25,6 +25,8 @@ const CustomListTable = ({
     );
   }, [data, filterKeys, searchQuery]);
 
+  console.log("uniqueTypes", uniqueTypes)
+
   // --- responsive scroll height ---
   const tableRef = React.useRef(null);
   const [scrollHeight, setScrollHeight] = useState("60vh"); // fallback
@@ -46,7 +48,8 @@ const CustomListTable = ({
   }, []);
 
   return (
-    <Box ref={tableRef}>
+    <Box padding={2} >
+      <Box ref={tableRef}>
       {/* Filters Row */}
       <Box
         display="flex"
@@ -56,16 +59,17 @@ const CustomListTable = ({
         gap={1}
       >
         {!isItem && (
-          <Box sx={{ minWidth: 200 }}>
+          <Box sx={{ minWidth: 180 }}>
             <Autocomplete
               id="item-group-filter"
               options={uniqueTypes}
               size="small"
+              autoComplete = "off"
               getOptionLabel={(option) => option}
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Item Group"
+                  label="Select Group"
                   variant="outlined"
                   fullWidth
                 />
@@ -75,7 +79,8 @@ const CustomListTable = ({
             />
           </Box>
         )}
-        <Box sx={{ minWidth: 200 }}>
+
+        <Box sx={{ minWidth: 180 }}>
           <TextField
             size="small"
             fullWidth
@@ -93,14 +98,15 @@ const CustomListTable = ({
         columns={columns}
         data={filtered}
         highlightOnHover
-        pagination
+        pagination 
         paginationPerPage={15}
-        paginationRowsPerPageOptions={[15, 20, 30, 50, 100]}
+        paginationRowsPerPageOptions={[15,20, 30, 50, 100]}
         fixedHeader
         fixedHeaderScrollHeight={scrollHeight}
         customStyles={customStyles}
-        persistTableHead
+        // persistTableHead
       />
+    </Box>
     </Box>
   );
 };

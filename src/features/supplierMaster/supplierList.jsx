@@ -1,18 +1,49 @@
 import React, { useState, useEffect } from "react";
-
-import SupplierListData from "../supplierMaster/supplierHeaderData.json";
+import axios from "axios";
+import {
+  Box,
+  TextField,
+  Autocomplete,
+  Grid,
+  TableContainer,
+  Typography,
+} from "@mui/material";
 import CustomListTable from "../../utils/customListTable";
-import { TableContainer } from "@mui/material";
 
 const SupplierListPage = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedType, setSelectedType] = useState("");
 
-  console.log("SupplierListData", SupplierListData);
+  const cardTypeOptions = [
+    { name: "Customer", cardType: "cCustomer" },
+    { name: "Supplier", cardType: "cSupplier" },
+    { name: "Lead", cardType: "cLid" },
+  ];
+
+  const fetchData = async (type) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5146/api/SapMaster/partners?cardType=${type}&pageSize=10&pageNumber=1`
+      );
+      const formatted = response.data?.value.map((item) => ({
+        supCode: item.CardCode,
+        supName: item.CardName,
+        minQty: "", // You can update these based on actual data or remove them
+        maxQty: "",
+        safetyStock: "",
+        uom: "",
+        address: item.Address,
+      }));
+      setData(formatted);
+    } catch (error) {
+      console.error("API fetch error:", error);
+    }
+  };
 
   useEffect(() => {
-    setData(SupplierListData);
-  }, []);
+    fetchData(selectedType);
+  }, [selectedType]);
 
   const handleSearchInputChange = (value) => {
     setSearchQuery(value);
@@ -32,36 +63,73 @@ const SupplierListPage = () => {
     {
       name: "MinQty",
       selector: (row) => row.minQty,
-      sortable: true,
     },
     {
       name: "MaxQty",
       selector: (row) => row.maxQty,
-      sortable: true,
     },
     {
       name: "Safety Stock",
       selector: (row) => row.safetyStock,
-      sortable: true,
     },
     {
       name: "UOM",
       selector: (row) => row.uom,
-      sortable: true,
+    },
+    {
+      name: "Address",
+      selector: (row) => row.address,
     },
   ];
 
   return (
-    <TableContainer>
-      <CustomListTable
-        columns={columns}
-        data={data}
-        filterKeys={["supCode", "supName"]}
-        searchQuery={searchQuery}
-        onSearchChange={(e) => handleSearchInputChange(e.target.value)}
-        isItem={true}
-      />
-    </TableContainer>
+    <Box p={2}>
+      {/* <Typography variant="h6" gutterBottom>
+        Supplier / Customer / Lead List
+      </Typography>
+
+      <Grid container spacing={2} alignItems="center" mb={2}>
+        <Grid item xs={12} md={6}>
+          <TextField
+            label="Search"
+            fullWidth
+            value={searchQuery}
+            onChange={(e) => handleSearchInputChange(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Autocomplete
+            options={cardTypeOptions}
+            getOptionLabel={(option) => option.name}
+            value={cardTypeOptions.find((o) => o.cardType === selectedType)}
+            onChange={(e, newValue) => {
+              if (newValue) {
+                setSelectedType(newValue.cardType);
+              }
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="Select Card Type" fullWidth />
+            )}
+          />
+        </Grid>
+      </Grid> */}
+
+      <TableContainer>
+        <CustomListTable
+          columns={columns}
+          data={data.filter(
+            (row) =>
+              row.supCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              row.supName.toLowerCase().includes(searchQuery.toLowerCase())
+          )}
+          filterKeys={["supCode", "supName"]}
+          searchQuery={searchQuery}
+          onSearchChange={(e) => handleSearchInputChange(e.target.value)}
+          isItem={false}
+        />
+      </TableContainer>
+    </Box>
   );
 };
 
