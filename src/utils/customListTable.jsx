@@ -79,26 +79,7 @@ const CustomListTable = ({
             />
           </Box>
         )}
-        {/* {!isItem && (
-          <Box sx={{ minWidth: 200 }}>
-            <Autocomplete
-              id="item-group-filter"
-              options={uniqueTypes}
-              size="small"
-              getOptionLabel={(option) => option}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Item Group"
-                  variant="outlined"
-                  fullWidth
-                />
-              )}
-              value={selectedType}
-              onChange={onSearchGroup}
-            />
-          </Box>
-        )} */}
+
         <Box sx={{ minWidth: 180 }}>
           <TextField
             size="small"
