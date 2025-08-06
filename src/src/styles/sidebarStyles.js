@@ -1,12 +1,12 @@
 const sidebarStyles = {
   drawer: (isSideIcon) => ({
-    backgroundColor: '#059DA3',
+    backgroundColor: '#050e60',
     flexShrink: 0,
     width: isSideIcon ? 75 : 250,
     '& .MuiDrawer-paper': {
       width: isSideIcon ? 75 : 250,
       boxSizing: 'border-box',
-      backgroundColor: '#059DA3',
+      backgroundColor: '#050e60',
       color: 'white',
       display: 'flex',
       flexDirection: 'column',
@@ -17,7 +17,7 @@ const sidebarStyles = {
     position: 'sticky',
     top: 0,
     zIndex: 2,
-    backgroundColor: '#059DA3',
+    backgroundColor: '#050e60',
     paddingLeft: '10px',
     minHeight: '64px',
   },
@@ -37,7 +37,7 @@ const sidebarStyles = {
   },
 
   accordion: {
-    backgroundColor: '#059DA3',
+    backgroundColor: '#050e60',
     boxShadow: 'none',
     '&.Mui-expanded': {
       margin: 0,
@@ -79,7 +79,7 @@ const sidebarStyles = {
     paddingLeft: '20px',
     fontSize: '11px',
     lineHeight: '5px',
-    backgroundColor: isSelected ? '#059DA3' : 'inherit',
+    backgroundColor: isSelected ? '#2e5cb8' : 'inherit',
     color: isSelected ? '#fff' : 'white',
     display: 'flex',
     alignItems: 'center',
@@ -94,7 +94,7 @@ const sidebarStyles = {
       fontSize: '18px',
     },
     '&:hover': {
-      backgroundColor: '#059DA3',
+      backgroundColor: '#2e5cb8',
       color: '#fff',
       '& svg': {
         color: '#fff',
@@ -109,7 +109,7 @@ const sidebarStyles = {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    backgroundColor: isSelected ? '#059DA3' : 'inherit',
+    backgroundColor: isSelected ? '#2e5cb8' : 'inherit',
     color: isSelected ? '#fff' : 'white',
     '& .MuiListItemText-root': {
       fontSize: '12px',
@@ -120,7 +120,7 @@ const sidebarStyles = {
       fontSize: '18px',
     },
     '&:hover': {
-      backgroundColor: '#059DA3',
+      backgroundColor: '#2e5cb8',
       color: '#fff',
       '& svg': {
         color: '#fff',
