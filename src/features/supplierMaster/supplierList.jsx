@@ -1,33 +1,18 @@
 import React, { useState, useEffect } from "react";
+
+import SupplierListData from "../supplierMaster/supplierHeaderData.json";
 import CustomListTable from "../../utils/customListTable";
 import { TableContainer } from "@mui/material";
-import axios from "axios";
-
-const selectOptions = [
-  { name: "Customer", cardType: "cCustomer" },
-  { name: "Supplier", cardType: "cSupplier" },
-  { name: "Lead", cardType: "cLid" }
-];
 
 const SupplierListPage = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize] = useState(50);
-  const [selectedType, setSelectedType] = useState(""); // Stores the selected type string
+
+  console.log("SupplierListData", SupplierListData);
 
   useEffect(() => {
-    fetchItems();
-    // eslint-disable-next-line
-  }, [selectedType, pageNumber]);
-
-  const handleSearchGroup = (value) => {
-    if (value) {
-      setSelectedType(value);
-      setPageNumber(0);
-    }
-  };
+    setData(SupplierListData);
+  }, []);
 
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -53,27 +38,47 @@ const SupplierListPage = () => {
   };
 
   const columns = [
-    { name: "Card Code", selector: row => row.CardCode, sortable: true },
-    { name: "Card Name", selector: row => row.CardName, sortable: true },
-    { name: "Group Code", selector: row => row.GroupCode, sortable: true },
-    { name: "Address", selector: row => row.Address, sortable: true },
+    {
+      name: "Supplier Code",
+      selector: (row) => row.supCode,
+      sortable: true,
+    },
+    {
+      name: "Supplier Name",
+      selector: (row) => row.supName,
+      sortable: true,
+    },
+    {
+      name: "MinQty",
+      selector: (row) => row.minQty,
+      sortable: true,
+    },
+    {
+      name: "MaxQty",
+      selector: (row) => row.maxQty,
+      sortable: true,
+    },
+    {
+      name: "Safety Stock",
+      selector: (row) => row.safetyStock,
+      sortable: true,
+    },
+    {
+      name: "UOM",
+      selector: (row) => row.uom,
+      sortable: true,
+    },
   ];
-
-  const uniqueTypes = selectOptions.map(opt => opt.name);
 
   return (
     <TableContainer>
       <CustomListTable
         columns={columns}
         data={data}
-        uniqueTypes={uniqueTypes}
         filterKeys={["supCode", "supName"]}
         searchQuery={searchQuery}
-        onSearchChange={handleSearchInputChange}
-        onSearchGroup={handleSearchGroup}
-        selectedType={selectedType}
-        isItem={false}
-        isLoading={isLoading}
+        onSearchChange={(e) => handleSearchInputChange(e.target.value)}
+        isItem={true}
       />
     </TableContainer>
   );
