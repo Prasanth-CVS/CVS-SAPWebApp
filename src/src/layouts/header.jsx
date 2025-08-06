@@ -32,10 +32,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-//   fetchBranchList,
-//   setSelectedBranch,
-// } from "../store/actions/branchAction";
+import {
+  fetchBranchList,
+  setSelectedBranch,
+} from "../store/actions/branchAction";
 import SnackbarAlert from "../components/shared/SnackbarAlert";
 import { useNavigate } from "react-router-dom";
 
@@ -66,9 +66,9 @@ const Header = ({
 
   const defaultEntity = branchList?.find((e) => e.entityId === defaultEntityId);
 
-  // useEffect(() => {
-  //   dispatch(fetchBranchList());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchBranchList());
+  }, [dispatch]);
 
   const handleOpenPopover = (event) => {
     setAnchorEl(event.currentTarget);

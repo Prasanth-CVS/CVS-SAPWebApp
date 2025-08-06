@@ -19,7 +19,7 @@ export const customStyles = {
       paddingBottom: '1px',
       fontSize: '10px',
       lineHeight: '1',
-      backgroundColor: '#079daaff',
+      backgroundColor: '#3a32a2',
       color:'#fff',
       fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"'
     },

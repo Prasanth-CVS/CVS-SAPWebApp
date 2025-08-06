@@ -1,24 +1,20 @@
-import React, { useState, useMemo, useLayoutEffect, useRef } from "react";
+import React, { useState, useMemo, useLayoutEffect } from "react";
 import { Box, TextField, Autocomplete } from "@mui/material";
 import DataTable from "react-data-table-component";
-import Pagination from "../components/events/pagenation/pagenation";
 import { customStyles } from "../styles/commanStyles";
-import "../styles/covalsys.css";
-
-const PageSize = 15;
+import "../styles/covalsys.css"; // Assuming you have some custom styles for the table
 
 const CustomListTable = ({
   title,
   data,
   columns,
-  filterKeys = [],
+  filterKeys,
   searchQuery,
   onSearchChange,
   uniqueTypes = [],
   onSearchGroup,
   selectedType,
   isItem,
-  isLoading,
 }) => {
   // --- filter ---
   const filtered = useMemo(() => {
@@ -29,31 +25,31 @@ const CustomListTable = ({
     );
   }, [data, filterKeys, searchQuery]);
 
-  // --- Paginated Data ---
-  const paginatedData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
-    return data.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage]);
+  console.log("uniqueTypes", uniqueTypes)
 
-  console.log(paginatedData,"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
+  // --- responsive scroll height ---
+  const tableRef = React.useRef(null);
+  const [scrollHeight, setScrollHeight] = useState("60vh"); // fallback
 
-  // --- Responsive scroll height ---
-  // useLayoutEffect(() => {
-  //   function calcScrollHeight() {
-  //     if (!tableRef.current) return;
-  //     const top = tableRef.current.getBoundingClientRect().top;
-  //     const available = window.innerHeight - top - 80;
-  //     const h = Math.max(available, 300);
-  //     setScrollHeight(`${h}px`);
-  //   }
-  //   calcScrollHeight();
-  //   window.addEventListener("resize", calcScrollHeight);
-  //   return () => window.removeEventListener("resize", calcScrollHeight);
-  // }, []);
+  useLayoutEffect(() => {
+    function calcScrollHeight() {
+      if (!tableRef.current) return;
+      // distance from top of viewport to top of table box
+      const top = tableRef.current.getBoundingClientRect().top;
+      // leave room for pagination + page bottom padding (~80px)
+      const available = window.innerHeight - top - 80;
+      // never go below 300px (safety)
+      const h = Math.max(available, 300);
+      setScrollHeight(`${h}px`);
+    }
+    calcScrollHeight();
+    window.addEventListener("resize", calcScrollHeight);
+    return () => window.removeEventListener("resize", calcScrollHeight);
+  }, []);
 
   return (
-    <Box ref={tableRef}>
+    <Box padding={2} >
+      <Box ref={tableRef}>
       {/* Filters Row */}
       <Box
         display="flex"
@@ -63,6 +59,27 @@ const CustomListTable = ({
         gap={1}
       >
         {!isItem && (
+          <Box sx={{ minWidth: 180 }}>
+            <Autocomplete
+              id="item-group-filter"
+              options={uniqueTypes}
+              size="small"
+              autoComplete = "off"
+              getOptionLabel={(option) => option}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Select Group"
+                  variant="outlined"
+                  fullWidth
+                />
+              )}
+              value={selectedType}
+              onChange={onSearchGroup}
+            />
+          </Box>
+        )}
+        {/* {!isItem && (
           <Box sx={{ minWidth: 200 }}>
             <Autocomplete
               id="item-group-filter"
@@ -81,8 +98,8 @@ const CustomListTable = ({
               onChange={onSearchGroup}
             />
           </Box>
-        )}
-        <Box sx={{ minWidth: 200 }}>
+        )} */}
+        <Box sx={{ minWidth: 180 }}>
           <TextField
             size="small"
             fullWidth
@@ -100,13 +117,13 @@ const CustomListTable = ({
         columns={columns}
         data={filtered}
         highlightOnHover
-        pagination
+        pagination 
         paginationPerPage={15}
-        paginationRowsPerPageOptions={[15, 20, 30, 50, 100]}
+        paginationRowsPerPageOptions={[15,20, 30, 50, 100]}
         fixedHeader
         fixedHeaderScrollHeight={scrollHeight}
         customStyles={customStyles}
-        persistTableHead
+        // persistTableHead
       />
     </Box>
     </Box>

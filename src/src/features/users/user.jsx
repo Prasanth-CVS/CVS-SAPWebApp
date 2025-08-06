@@ -23,10 +23,10 @@ import { useNavigate } from "react-router-dom";
 import CustomListTable from "../../utils/customListTable";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import { fetchRoleList, setSelectedRole } from "../../store/actions/roleAction";
-// import {
-//   fetchBranchList,
-//   setSelectedBranch,
-// } from "../../store/actions/branchAction";
+import {
+  fetchBranchList,
+  setSelectedBranch,
+} from "../../store/actions/branchAction";
 import UserDialog from "./components/userDialog";
 import Header from "../../layouts/header";
 

@@ -8,7 +8,7 @@ import CustomListTable from "../../utils/customListTable";
 const ItemListPage = () => {
   const [data, setData] = useState([]); // store item list
   const [searchQuery, setSearchQuery] = useState(""); // for search
-  const [pageNumber, setPageNumber] = useState(0); // current page (0-based index)
+  const [pageNumber, setPageNumber] = useState(1); // current page
   const [pageSize] = useState(50); // items per page
   const [isLoading, setIsLoading] = useState(false); // loading indicator
 
@@ -19,7 +19,7 @@ const ItemListPage = () => {
       const response = await axios.get(
         `http://localhost:5146/api/SapMaster/items?pageSize=${pageSize}&pageNumber=${pageNumber}`
       );
-      console.log("API Response:", response);
+      console.log("log1",response)
       setData(response.data.value || []);
     } catch (error) {
       console.error("Error fetching item data:", error);
@@ -27,6 +27,8 @@ const ItemListPage = () => {
       setIsLoading(false);
     }
   };
+
+
 
   // 🚀 Fetch data whenever page number changes
   useEffect(() => {
@@ -41,7 +43,7 @@ const ItemListPage = () => {
   // ⏭ Handle page navigation
   const handleNextPage = () => setPageNumber((prev) => prev + 1);
   const handlePrevPage = () =>
-    setPageNumber((prev) => (prev > 0 ? prev - 1 : 0));
+    setPageNumber((prev) => (prev > 1 ? prev - 1 : 1));
 
   // 📊 Define the table columns
   const columns = [
@@ -87,21 +89,17 @@ const ItemListPage = () => {
       </TableContainer>
 
       {/* Pagination Buttons */}
-      {/* <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-        <Button
-          variant="contained"
-          onClick={handlePrevPage}
-          disabled={pageNumber === 0}
-        >
+      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+        <Button variant="contained" onClick={handlePrevPage} disabled={pageNumber === 1}>
           Previous
         </Button>
         <Typography variant="body1" sx={{ alignSelf: "center" }}>
-          Page {pageNumber + 1}
+          Page {pageNumber}
         </Typography>
         <Button variant="contained" onClick={handleNextPage}>
           Next
         </Button>
-      </Box> */}
+      </Box>
     </Box>
   );
 };

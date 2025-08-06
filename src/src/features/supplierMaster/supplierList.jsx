@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import SupplierListData from "../supplierMaster/supplierHeaderData.json";
 import CustomListTable from "../../utils/customListTable";
 import { TableContainer } from "@mui/material";
@@ -14,28 +13,26 @@ const SupplierListPage = () => {
     setData(SupplierListData);
   }, []);
 
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
+  const handleSearchInputChange = (value) => {
+    setSearchQuery(value);
   };
 
-  const fetchItems = async () => {
-    setIsLoading(true);
-    const selected = selectOptions.find(opt => opt.name === selectedType);
-    const cardType = selected ? selected.cardType : "";
+  const [selectItem , setSelectItem] = useState([
+      {
+        name : "Customer",
+        cardType :"cCustomer"
+      },{
+        name : "Supplier",
+        cardType : "cSupplier"
+      },
+      {
+        name: "Lead",
+        cardType : "cLid"
+      }
+  ])
 
-    try {
-      const _response = await axios.get(
-        `http://localhost:5146/api/SapMaster/partners?cardType=${cardType}&pageSize=${pageSize}&pageNumber=${pageNumber}`
-      );
-      setData(_response.data.value || []);
-      console.log(_response,"_response");
-    } catch (error) {
-      console.error("Error Fetching Data:", error);
-      setData([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+
+  const uniqueTypes = [...new Set(selectItem.map((item) => item.name))];
 
   const columns = [
     {
@@ -75,10 +72,11 @@ const SupplierListPage = () => {
       <CustomListTable
         columns={columns}
         data={data}
+        uniqueTypes = {uniqueTypes}
         filterKeys={["supCode", "supName"]}
         searchQuery={searchQuery}
         onSearchChange={(e) => handleSearchInputChange(e.target.value)}
-        isItem={true}
+        isItem={false}
       />
     </TableContainer>
   );
