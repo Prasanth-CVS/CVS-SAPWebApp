@@ -85,23 +85,6 @@ const ItemListPage = () => {
           loading={isLoading}
         />
       </TableContainer>
-
-      {/* Pagination Buttons */}
-      {/* <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-        <Button
-          variant="contained"
-          onClick={handlePrevPage}
-          disabled={pageNumber === 0}
-        >
-          Previous
-        </Button>
-        <Typography variant="body1" sx={{ alignSelf: "center" }}>
-          Page {pageNumber + 1}
-        </Typography>
-        <Button variant="contained" onClick={handleNextPage}>
-          Next
-        </Button>
-      </Box> */}
     </Box>
   );
 };
