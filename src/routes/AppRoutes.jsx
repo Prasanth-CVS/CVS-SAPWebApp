@@ -14,7 +14,7 @@ const AppRoutes = () => (
   <BrowserRouter>
     <Routes>
       {/* Login Page (Landing) */}
-      <Route path="/" element={<KanbanLogin />} />
+      <Route path="/" element={<ItemListPage />} />
 
       {/* Main Layout Routes (Protected Pages) */}
       <Route element={<MainLayout />}>

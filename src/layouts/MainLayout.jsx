@@ -71,7 +71,7 @@ const MainLayout = () => {
           "& .MuiDrawer-paper": {
             width: isSideIcon ? drawerIconWidth : drawerWidth,
             boxSizing: "border-box",
-            backgroundColor: "#050e60",
+            backgroundColor: "#059DA3",
             color: "#fff",
           },
         }}

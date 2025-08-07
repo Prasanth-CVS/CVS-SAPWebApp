@@ -110,10 +110,10 @@ const sidebarStyles = {
     alignItems: 'center',
     gap: '8px',
     backgroundColor: isSelected ? '#059DA3' : 'inherit',
-    color: isSelected ? '#fff' : 'white',
+    color: isSelected ? '#000' : 'black',
     '& .MuiListItemText-root': {
       fontSize: '12px',
-      color: isSelected ? '#fff' : 'white',
+      color: isSelected ? '#000' : 'black',
     },
     '& svg': {
       color: isSelected ? '#fff' : 'white',

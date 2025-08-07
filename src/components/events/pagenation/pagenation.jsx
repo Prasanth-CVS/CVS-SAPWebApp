@@ -1,6 +1,6 @@
+// src/components/Pagination/Pagination.jsx
 import React from "react";
 import { Box, Pagination as MuiPagination } from "@mui/material";
-import { usePagination,DOTS } from "../pagenation/usePagenation";
 
 const Pagination = ({
   onPageChange,
@@ -11,16 +11,9 @@ const Pagination = ({
 }) => {
   // Calculate total pages
   const totalPages = Math.ceil(totalCount / pageSize);
-  console.log("totalPages",totalPages);
 
-  const paginationRange = usePagination({
-    currentPage,
-    totalCount,
-    siblingCount,
-    pageSize
-  });
-
-  // if (totalPages <= 1) return null; // No pagination needed
+  // Optional: Skip rendering if only 1 page
+  if (totalPages <= 1) return null;
 
   return (
     <Box display="flex" justifyContent="center" mt={2}>
