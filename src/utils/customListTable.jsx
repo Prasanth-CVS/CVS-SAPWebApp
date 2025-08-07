@@ -36,7 +36,7 @@ const CustomListTable = ({
     return data.slice(firstPageIndex, lastPageIndex);
   }, [currentPage]);
 
-  console.log(paginatedData,"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
+  console.log(paginatedData, "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
 
   // --- Responsive scroll height ---
   // useLayoutEffect(() => {
@@ -109,7 +109,7 @@ const CustomListTable = ({
         persistTableHead
       />
     </Box>
-    </Box>
+    // </Box>
   );
 };
 
