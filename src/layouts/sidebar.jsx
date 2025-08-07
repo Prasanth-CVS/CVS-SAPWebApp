@@ -69,55 +69,55 @@ const SideBar = ({ isSideIcon }) => {
 
   let allChild = [
     {
-      name: "OEM Plan Upload",
-      route: "/app/LoadCustomer",
+      name: "Sales Order",
+      route: "/app/SalesOrder",
       iconMenu: <SupervisorAccountTwoTone />,
     },
-    {
-      name: "OEM Plan View",
-      route: "/app/TKMPlan",
-      iconMenu: <SupervisedUserCircleRounded />,
-    },
-    {
-      name: "Supplier Plan Automation",
-      route: "/app/planautomation",
-      iconMenu: <Group />,
-    },
-    {
-      name: "Supplier Plan Upload",
-      route: "/app/LoadSupplier",
-      iconMenu: <GroupWorkOutlined />,
-    },
-    {
-      name: "Supplier Plan Creation",
-      route: "/app/SupplierPlan",
-      iconMenu: <GroupAddOutlined />,
-    },
-    {
-      name: "Safety Stock Updation",
-      route: "/app/bounds",
-      iconMenu: <ViewAgendaOutlined />,
-    },
-    {
-      name: "Planning Engine",
-      route: "/app/PlanEngin",
-      iconMenu: <Exposure />,
-    },
-    {
-      name: "RM Planning Engine",
-      route: "/app/RmPlanEngin",
-      iconMenu: <Exposure />,
-    },
-    {
-      name: "Supplier Work Order Status",
-      route: "/app/SupplierPO",
-      iconMenu: <GroupSharp />,
-    },
-    {
-      name: "Production Kanban Plan",
-      route: "/app/ProductionPlanList",
-      iconMenu: <ViewStream />,
-    },
+    // {
+    //   name: "OEM Plan View",
+    //   route: "/app/TKMPlan",
+    //   iconMenu: <SupervisedUserCircleRounded />,
+    // },
+    // {
+    //   name: "Supplier Plan Automation",
+    //   route: "/app/planautomation",
+    //   iconMenu: <Group />,
+    // },
+    // {
+    //   name: "Supplier Plan Upload",
+    //   route: "/app/LoadSupplier",
+    //   iconMenu: <GroupWorkOutlined />,
+    // },
+    // {
+    //   name: "Supplier Plan Creation",
+    //   route: "/app/SupplierPlan",
+    //   iconMenu: <GroupAddOutlined />,
+    // },
+    // {
+    //   name: "Safety Stock Updation",
+    //   route: "/app/bounds",
+    //   iconMenu: <ViewAgendaOutlined />,
+    // },
+    // {
+    //   name: "Planning Engine",
+    //   route: "/app/PlanEngin",
+    //   iconMenu: <Exposure />,
+    // },
+    // {
+    //   name: "RM Planning Engine",
+    //   route: "/app/RmPlanEngin",
+    //   iconMenu: <Exposure />,
+    // },
+    // {
+    //   name: "Supplier Work Order Status",
+    //   route: "/app/SupplierPO",
+    //   iconMenu: <GroupSharp />,
+    // },
+    // {
+    //   name: "Production Kanban Plan",
+    //   route: "/app/ProductionPlanList",
+    //   iconMenu: <ViewStream />,
+    // },
   ];
 
   const allSubMenu =
@@ -177,12 +177,12 @@ const SideBar = ({ isSideIcon }) => {
         // },
       ],
     },
-    // {
-    //   roles: [1, 2, 4, 5, 6],
-    //   headName: "Kanban Board",
-    //   homeIcon: <TvOutlinedIcon />,
-    //   childName: allSubMenu,
-    // },
+    {
+      roles: [1, 2, 4, 5, 6],
+      headName: "Order Management",
+      homeIcon: <TvOutlinedIcon />,
+      childName: allSubMenu,
+    },
     // {
     //   roles: [1, 2, 4, 5, 6],
     //   headName: "Analytics",

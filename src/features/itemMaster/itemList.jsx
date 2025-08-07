@@ -1,75 +1,35 @@
-// src/pages/itemMaster/ItemListPage.jsx
-
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { TableContainer, Box, Button, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import ItemListData from "../itemMaster/itemData.json";
 import CustomListTable from "../../utils/customListTable";
+import { TableContainer, Box } from "@mui/material";
+
 
 const ItemListPage = () => {
-  const [data, setData] = useState([]); // store item list
-  const [searchQuery, setSearchQuery] = useState(""); // for search
-  const [pageNumber, setPageNumber] = useState(0); // current page (0-based index)
-  const [pageSize] = useState(50); // items per page
-  const [isLoading, setIsLoading] = useState(false); // loading indicator
+  const [data, setData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // 🔄 Fetch item list from API with pagination
-  const fetchItems = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(
-        `http://localhost:5146/api/SapMaster/items?pageSize=${pageSize}&pageNumber=${pageNumber}`
-      );
-      console.log("API Response:", response);
-      setData(response.data.value || []);
-    } catch (error) {
-      console.error("Error fetching item data:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // 🚀 Fetch data whenever page number changes
   useEffect(() => {
-    fetchItems();
-  }, [pageNumber]);
+    setData(ItemListData);
+  }, []);
 
-  // 🔎 Handle search input change
+  // Handle search input change
   const handleSearchInputChange = (value) => {
     setSearchQuery(value);
   };
 
-  // ⏭ Handle page navigation
-  const handleNextPage = () => setPageNumber((prev) => prev + 1);
-  const handlePrevPage = () =>
-    setPageNumber((prev) => (prev > 0 ? prev - 1 : 0));
-
-  // 📊 Define the table columns
+  // Table columns
   const columns = [
+    { name: "Item Group", selector: (row) => row.itemGroup, sortable: true },
+    { name: "Item Code", selector: (row) => row.itemCode, sortable: true },
+    { name: "Item Name", selector: (row) => row.itemName, sortable: true },
+    { name: "UOM", selector: (row) => row.uom, sortable: true },
     {
-      name: "Item Code",
-      selector: (row) => row.ItemCode,
+      name: "Safety Stock",
+      selector: (row) => row.safetyStock,
       sortable: true,
     },
-    {
-      name: "Item Name",
-      selector: (row) => row.ItemName,
-      sortable: true,
-    },
-    {
-      name: "Group Code",
-      selector: (row) => row.ItemsGroupCode,
-      sortable: true,
-    },
-    {
-      name: "Item Type",
-      selector: (row) => row.ItemType,
-      sortable: true,
-    },
-    {
-      name: "Material Type",
-      selector: (row) => row.MaterialType,
-      sortable: true,
-    },
+    { name: "ROL", selector: (row) => row.rol, sortable: true },
+    { name: "Max Stock", selector: (row) => row.maxQty, sortable: true },
   ];
 
   return (
@@ -78,11 +38,10 @@ const ItemListPage = () => {
         <CustomListTable
           columns={columns}
           data={data}
-          filterKeys={["ItemCode", "ItemName"]}
+          filterKeys={["itemCode", "itemName"]}
           searchQuery={searchQuery}
           onSearchChange={(e) => handleSearchInputChange(e.target.value)}
           isItem={true}
-          loading={isLoading}
         />
       </TableContainer>
     </Box>

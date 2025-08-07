@@ -26,6 +26,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  colors,
 } from "@mui/material";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -45,7 +46,7 @@ const Header = ({
   rendorIcon = false,
   drawerWidth = 230,
   isSideIcon = false,
-  userName
+  userName,
 }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -126,11 +127,15 @@ const Header = ({
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Box>
             {!rendorIcon ? (
-              <Box sx={iconButtonStyle} onClick={toggleDrawer}>
+              <Box sx={iconButtonStyle} color="#059DA3" onClick={toggleDrawer}>
                 <MenuOpenIcon />
               </Box>
             ) : (
-              <Box sx={iconButtonStyle} onClick={toggleDrawerClose}>
+              <Box
+                sx={iconButtonStyle}
+                color="#059DA3"
+                onClick={toggleDrawerClose}
+              >
                 <MenuIcon />
               </Box>
             )}
@@ -146,8 +151,8 @@ const Header = ({
             <Avatar
               sx={{
                 bgcolor: "transparent",
-                border: "2px solid #050e60",
-                color: "#050e60",
+                border: "2px solid #059DA3",
+                color: "#059DA3",
                 fontSize: "12px",
                 fontWeight: 600,
                 cursor: "pointer",
@@ -165,7 +170,9 @@ const Header = ({
               onClose={() => setMenuAnchor(null)}
             >
               <MenuItem>Profile</MenuItem>
-              <MenuItem onClick={() => setLogoutDialogOpen(true)}>Logout</MenuItem>
+              <MenuItem onClick={() => setLogoutDialogOpen(true)}>
+                Logout
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>
@@ -244,10 +251,15 @@ const Header = ({
       />
 
       {/* Logout Confirmation Dialog */}
-      <Dialog open={logoutDialogOpen} onClose={() => setLogoutDialogOpen(false)}>
+      <Dialog
+        open={logoutDialogOpen}
+        onClose={() => setLogoutDialogOpen(false)}
+      >
         <DialogTitle>Logout</DialogTitle>
         <DialogContent>
-          <Typography variant="body2">Are you sure you want to logout?</Typography>
+          <Typography variant="body2">
+            Are you sure you want to logout?
+          </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setLogoutDialogOpen(false)} color="primary">
