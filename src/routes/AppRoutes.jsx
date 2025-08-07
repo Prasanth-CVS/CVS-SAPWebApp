@@ -9,6 +9,7 @@ import KanbanLogin from "../pages/Login"; // ← Updated login component
 import ItemListPage from "../features/itemMaster/itemList";
 import SupplierListPage from "../features/supplierMaster/supplierList"; // Assuming this is the correct import for supplier master
 import StockStatus from "../features/stockStatus/stockStatusList"; // Assuming this is the correct import for stock status
+import SalesOrderPage from "../features/SalesOrder/SalesOrder"; // Assuming this is the correct import for sales order
 
 const AppRoutes = () => (
   <BrowserRouter>
@@ -23,7 +24,8 @@ const AppRoutes = () => (
         <Route path="/app/user" element={<User />} />
         <Route path="/app/itemMaster" element={<ItemListPage />} />
         <Route path="/app/bpmaster" element={<SupplierListPage />} />
-        {/* <Route path="/app/stockStatus" element={<StockStatus />} /> */}
+        <Route path="/app/salesorder" element={<SalesOrderPage />} />
+        <Route path="/app/stockstatus" element={<StockStatus />} />
       </Route>
 
       {/* 404 Fallback */}

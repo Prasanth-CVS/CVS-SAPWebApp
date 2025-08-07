@@ -70,7 +70,7 @@ const SideBar = ({ isSideIcon }) => {
   let allChild = [
     {
       name: "Sales Order",
-      route: "/app/SalesOrder",
+      route: "/app/salesorder",
       iconMenu: <SupervisorAccountTwoTone />,
     },
     // {
