@@ -9,13 +9,13 @@ import KanbanLogin from "../pages/Login"; // ← Updated login component
 import ItemListPage from "../features/itemMaster/itemList";
 import SupplierListPage from "../features/supplierMaster/supplierList"; // Assuming this is the correct import for supplier master
 import StockStatus from "../features/stockStatus/stockStatusList"; // Assuming this is the correct import for stock status
-import SalesOrderPage from "../features/SalesOrder/SalesOrder"; // Assuming this is the correct import for sales order
+import SalesOrderPage from "../features/Part Master/partMaster"; // Assuming this is the correct import for sales order
 
 const AppRoutes = () => (
   <BrowserRouter>
     <Routes>
       {/* Login Page (Landing) */}
-      <Route path="/" element={<ItemListPage />} />
+      <Route path="/" element={<KanbanLogin />} />
 
       {/* Main Layout Routes (Protected Pages) */}
       <Route element={<MainLayout />}>
@@ -24,7 +24,7 @@ const AppRoutes = () => (
         <Route path="/app/user" element={<User />} />
         <Route path="/app/itemMaster" element={<ItemListPage />} />
         <Route path="/app/bpmaster" element={<SupplierListPage />} />
-        <Route path="/app/salesorder" element={<SalesOrderPage />} />
+        <Route path="/app/partmaster" element={<SalesOrderPage />} />
         <Route path="/app/stockstatus" element={<StockStatus />} />
       </Route>
 

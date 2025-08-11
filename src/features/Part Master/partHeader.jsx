@@ -1,91 +1,94 @@
 import React from "react";
-import { Box, Grid, TextField } from "@mui/material";
+import { Box, Grid, TextField, Paper } from "@mui/material";
+import "./Style/partHeaderPage.css";
 
 const SalesOrderHeaderPage = ({ headerData = {} }) => {
-  const roundedTextField = {
-    "& .MuiOutlinedInput-root": {
-      borderRadius: "4px",
-    },
-  };
-
   return (
-    <Box sx={{ p: 3, backgroundColor: "#f9f9f9" }}>
-      {/* First Row - 4 Fields */}
-      <Grid container spacing={2} mb={1.2}>
-        <Grid item>
+    <Box sx={{ padding: 1 }}>
+      {/* First Row */}
+      <Grid container spacing={2} mb={2} md={12}>
+        <Grid xs={12} sm={3}>
           <TextField
+            fullWidth
             size="small"
-            value={headerData.docNum || ""}
             label="Doc Num"
+            value={headerData.docNum || ""}
             InputProps={{ readOnly: false }}
-            sx={{ width: 200, ...roundedTextField }}
+            className="rounded-textfield"
           />
         </Grid>
-        <Grid item>
+        <Grid xs={12} sm={3}>
           <TextField
+            fullWidth
             size="small"
-            value={headerData.partNo || ""}
             label="Part No"
+            value={headerData.partNo || ""}
             InputProps={{ readOnly: false }}
-            sx={{ width: 200, ...roundedTextField }}
+            className="rounded-textfield"
           />
         </Grid>
-        <Grid item>
+        <Grid xs={12} sm={3}>
           <TextField
+            fullWidth
             size="small"
-            value={headerData.fgItemCode || ""}
             label="FG Item Code"
+            value={headerData.fgItemCode || ""}
             InputProps={{ readOnly: false }}
-            sx={{ width: 200, ...roundedTextField }}
+            className="rounded-textfield"
           />
         </Grid>
-        <Grid item>
+        <Grid xs={12} sm={3}>
           <TextField
+            fullWidth
             size="small"
-            value={headerData.custCode || ""}
             label="Card Code"
+            value={headerData.custCode || ""}
             InputProps={{ readOnly: false }}
-            sx={{ width: 200, ...roundedTextField }}
+            className="rounded-textfield"
           />
         </Grid>
       </Grid>
 
-      {/* Second Row - 4 Fields */}
+      {/* Second Row */}
       <Grid container spacing={2}>
-        <Grid item>
+        <Grid item xs={12} sm={3}>
           <TextField
+            fullWidth
             size="small"
-            value={headerData.docDate || ""}
             label="Doc Date"
+            value={headerData.docDate || ""}
             InputProps={{ readOnly: false }}
-            sx={{ width: 200, ...roundedTextField }}
+            className="rounded-textfield"
           />
         </Grid>
-        <Grid item>
+        <Grid item xs={12} sm={3}>
           <TextField
+            fullWidth
             size="small"
-            value={headerData.assemblyRequired || ""}
             label="Assembly Required"
+            value={headerData.assemblyRequired || ""}
             InputProps={{ readOnly: false }}
-            sx={{ width: 200, ...roundedTextField }}
+            className="rounded-textfield"
           />
         </Grid>
-        <Grid item>
+        <Grid item xs={12} sm={3}>
           <TextField
+            fullWidth
             size="small"
-            value={headerData.fgItemName || ""}
             label="FG Item Name"
+            value={headerData.fgItemName || ""}
             InputProps={{ readOnly: false }}
-            sx={{ width: 200, ...roundedTextField }}
+            className="rounded-textfield"
           />
         </Grid>
-        <Grid item>
+        <Grid item xs={12} sm={3}>
           <TextField
+            fullWidth
             size="small"
-            value={headerData.custName || ""}
             label="Card Name"
+            value={headerData.custName || ""}
             InputProps={{ readOnly: false }}
-            sx={{ width: 200, ...roundedTextField }}
+            className="rounded-textfield"
           />
         </Grid>
       </Grid>

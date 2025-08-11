@@ -1,0 +1,8 @@
+.rounded-textfield .MuiOutlinedInput-root {
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.rounded-textfield .MuiInputLabel-root {
+    font-weight: 500;
+}

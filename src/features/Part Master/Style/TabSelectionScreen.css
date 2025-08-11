@@ -1,0 +1,18 @@
+
+.custom-textfield .MuiInputBase-root {
+    height: 28px;
+    font-size: 0.8rem;
+}
+
+.custom-textfield .MuiInputLabel-root {
+    font-size: 0.75rem;
+}
+
+.custom-textfield .MuiOutlinedInput-input {
+    padding: 3px 6px;
+}
+
+.small-width {
+    max-width: 140px;
+    
+}
