@@ -5,7 +5,7 @@ if (window.location.hostname === 'localhost') {
 } else if (window.location.hostname === 'covdevhana.veritycloud.com') {
   apiURL = 'http://20.197.18.80/api_s/api/';
 } else {
-  apiURL = 'http://20.197.18.80/api_s/api/';
+  apiURL = 'http://20.197.18.8081/api_s/api/';
 }
  
 export default apiURL;

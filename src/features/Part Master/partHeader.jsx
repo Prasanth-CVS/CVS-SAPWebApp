@@ -1,99 +1,106 @@
-import React from "react";
-import { Box, Grid, TextField, Paper } from "@mui/material";
-import "./Style/partHeaderPage.css";
+import React, { useState } from "react";
+import { Box, TextField, MenuItem, Grid } from "@mui/material";
 
-const SalesOrderHeaderPage = ({ headerData = {} }) => {
+export default function ResponsiveCustomerForm() {
+  const [form, setForm] = useState({});
+
+  // Dropdown options
+  const typeOptions = [];
+
+  const assemblyOptions = [
+    { label: "Yes", value: "yes" },
+    { label: "No", value: "no" },
+  ];
+
+  const fields = [
+    { label: "Doc No", name: "documentNo", type: "text" },
+    { label: "Doc Date", name: "documentDate", type: "text" },
+    { label: "Customer Name", name: "customerName", type: "text" },
+    { label: "Part Number", name: "partNumber", type: "text" },
+    { label: "Type", name: "type", type: "select", options: typeOptions },
+    { label: "FG Item Name", name: "fgItemName", type: "text" },
+    {
+      label: "Assembly Required",
+      name: "assemblyRequired",
+      type: "select",
+      options: assemblyOptions,
+    },
+  ];
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
-    <Box sx={{ padding: 1 }}>
-      {/* First Row */}
-      <Grid container spacing={2} mb={2} md={12}>
-        <Grid xs={12} sm={3}>
-          <TextField
-            fullWidth
-            size="small"
-            label="Doc Num"
-            value={headerData.docNum || ""}
-            InputProps={{ readOnly: false }}
-            className="rounded-textfield"
-          />
-        </Grid>
-        <Grid xs={12} sm={3}>
-          <TextField
-            fullWidth
-            size="small"
-            label="Part No"
-            value={headerData.partNo || ""}
-            InputProps={{ readOnly: false }}
-            className="rounded-textfield"
-          />
-        </Grid>
-        <Grid xs={12} sm={3}>
-          <TextField
-            fullWidth
-            size="small"
-            label="FG Item Code"
-            value={headerData.fgItemCode || ""}
-            InputProps={{ readOnly: false }}
-            className="rounded-textfield"
-          />
-        </Grid>
-        <Grid xs={12} sm={3}>
-          <TextField
-            fullWidth
-            size="small"
-            label="Card Code"
-            value={headerData.custCode || ""}
-            InputProps={{ readOnly: false }}
-            className="rounded-textfield"
-          />
-        </Grid>
-      </Grid>
-
-      {/* Second Row */}
+    <Box sx={{ flexGrow: 1, p: 1 }}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={3}>
-          <TextField
-            fullWidth
-            size="small"
-            label="Doc Date"
-            value={headerData.docDate || ""}
-            InputProps={{ readOnly: false }}
-            className="rounded-textfield"
-          />
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <TextField
-            fullWidth
-            size="small"
-            label="Assembly Required"
-            value={headerData.assemblyRequired || ""}
-            InputProps={{ readOnly: false }}
-            className="rounded-textfield"
-          />
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <TextField
-            fullWidth
-            size="small"
-            label="FG Item Name"
-            value={headerData.fgItemName || ""}
-            InputProps={{ readOnly: false }}
-            className="rounded-textfield"
-          />
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <TextField
-            fullWidth
-            size="small"
-            label="Card Name"
-            value={headerData.custName || ""}
-            InputProps={{ readOnly: false }}
-            className="rounded-textfield"
-          />
-        </Grid>
+        {/* Doc No + Doc Date in same row */}
+        {fields.slice(0, 2).map((f) => (
+          <Grid size={6} xs={12} sm={6} key={f.name}>
+            <TextField
+              label={f.label}
+              name={f.name}
+              value={form[f.name] || ""}
+              onChange={handleChange}
+              autoComplete="off"
+              size="small"
+              fullWidth
+              InputProps={{
+                sx: {
+                  borderRadius: 0.5,
+                  color: "text.secondary",
+                },
+              }}
+            />
+          </Grid>
+        ))}
+
+        {/* Remaining fields */}
+        {fields.slice(2).map((f) => (
+          <Grid size={12} xs={12} key={f.name}>
+            {f.type === "select" ? (
+              <TextField
+                select
+                label={f.label}
+                name={f.name}
+                value={form[f.name] || ""}
+                onChange={handleChange}
+                size="small"
+                fullWidth
+                InputProps={{
+                  sx: {
+                    borderRadius: 0.5,
+                    color: "text.secondary",
+                  },
+                }}
+              >
+                {f.options.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            ) : (
+              <TextField
+                label={f.label}
+                name={f.name}
+                value={form[f.name] || ""}
+                onChange={handleChange}
+                autoComplete="off"
+                size="small"
+                fullWidth
+                InputProps={{
+                  sx: {
+                    borderRadius: 0.5,
+                    color: "text.secondary",
+                  },
+                }}
+              />
+            )}
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );
-};
-
-export default SalesOrderHeaderPage;
+}

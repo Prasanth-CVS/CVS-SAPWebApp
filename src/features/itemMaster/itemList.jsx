@@ -3,6 +3,7 @@ import ItemListData from "../itemMaster/itemData.json";
 import CustomListTable from "../../utils/customListTable";
 import { TableContainer, Box } from "@mui/material";
 
+
 const ItemListPage = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");

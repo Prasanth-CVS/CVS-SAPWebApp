@@ -1,3 +1,4 @@
+// SalesOrderPage.jsx
 import React from "react";
 import { Box, Card, Grid } from "@mui/material";
 import AppBreadcrumbs from "../../components/shared/breadCrumb";
@@ -6,32 +7,30 @@ import TabSelectionScreen from "./partTab"; // Left side list/table
 
 const SalesOrderPage = () => {
   return (
-    <>
-      <Box display="flex" alignItems="center" justifyContent="space-between">
+    <Card sx={{ marginTop: 1, marginLeft: 1, p: 2 }}>
+      <Box>
         {/* Breadcrumbs */}
         <AppBreadcrumbs
           links={[
-            { label: "Home", path: "/app/home" },
+            { label: "Home", path: "/" },
             { label: "Part Master", path: "/part-master" },
           ]}
         />
-      </Box>
 
-      <Grid container spacing={1}>
-        <Grid size={9} xs={12} md={9}>
-          <Card sx={{ p: 2, mb: 1, boxShadow: 3 }}>
+        {/* Grid Layout: Left=9, Right=3 */}
+        <Grid container spacing={2}>
+          {/* LEFT SIDE: Table/List */}
+          <Grid item xs={12} sm={9}>
             <TabSelectionScreen />
-          </Card>
-        </Grid>
+          </Grid>
 
-        {/* RIGHT SIDE: Sticky Form */}
-        <Grid size={3} xs={12} md={3}>
-          <Card sx={{ p: 2, ml: 1, boxShadow: 3 }}>
+          {/* RIGHT SIDE: Form */}
+          <Grid item xs={12} sm={3}>
             <SalesOrderHeaderPage />
-          </Card>
+          </Grid>
         </Grid>
-      </Grid>
-    </>
+      </Box>
+    </Card>
   );
 };
 

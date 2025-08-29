@@ -1,6 +1,6 @@
-// import React, { useState, useEffect } from "react";
 import React, { useState, useEffect } from "react";
 import {
+  Grid,
   Box,
   Tabs,
   Tab,
@@ -11,17 +11,18 @@ import {
   TableHead,
   TableRow,
   TextField,
-  Paper,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   Button,
   Typography,
+  MenuItem,
 } from "@mui/material";
 
 const TabSelectionScreen = () => {
   const [tabIndex, setTabIndex] = useState(0);
+  const [selectedSubPart, setSelectedSubPart] = useState("");
 
   const [rows, setRows] = useState([
     {
@@ -29,12 +30,11 @@ const TabSelectionScreen = () => {
       col2: "",
       col3: "",
       col4: "",
-      col5: "",
       inputItemData: { inputType: "", itemCode: "", itemName: "" },
+      col6: "",
       col7: "",
       col8: "",
       col9: "",
-      col10: "",
       qualityInfo: {
         parameter: "",
         instrument: "",
@@ -42,7 +42,7 @@ const TabSelectionScreen = () => {
         min: "",
         max: "",
       },
-      col12: "",
+      col11: "",
     },
   ]);
 
@@ -64,13 +64,11 @@ const TabSelectionScreen = () => {
     max: "",
   });
 
-
   useEffect(() => {
-    
     setTimeout(() => {
       setInputDialogData((prev) => ({
         ...prev,
-        inputType: "", 
+        inputType: "",
       }));
     }, 1000);
   }, [inputDialogOpen]);
@@ -90,12 +88,11 @@ const TabSelectionScreen = () => {
         col2: "",
         col3: "",
         col4: "",
-        col5: "",
         inputItemData: { inputType: "", itemCode: "", itemName: "" },
+        col6: "",
         col7: "",
         col8: "",
         col9: "",
-        col10: "",
         qualityInfo: {
           parameter: "",
           instrument: "",
@@ -103,7 +100,7 @@ const TabSelectionScreen = () => {
           min: "",
           max: "",
         },
-        col12: "",
+        col11: "",
       };
       setRows((prev) => [...prev, newRow]);
     }
@@ -153,9 +150,9 @@ const TabSelectionScreen = () => {
     handleCloseQualityDialog();
   };
 
+  // Sub Part Code REMOVED from here
   const columns = [
-    "Operation No",
-    "Sub Part No.",
+    "Sl.No",
     "Assembly Item",
     "Operation Code",
     "Operation Name",
@@ -169,18 +166,15 @@ const TabSelectionScreen = () => {
   ];
 
   const renderTable = () => (
-    <TableContainer
-      component={Paper}
-      sx={{ maxHeight: 300, overflow: "auto", mb: 2 }}
-    >
-      <Table stickyHeader size="small">
+    <TableContainer component={Box} sx={{ maxHeight: 600, mt: 2 }}>
+      <Table stickyHeader>
         <TableHead>
           <TableRow>
             {columns.map((col) => (
               <TableCell
                 key={col}
                 sx={{
-                  backgroundColor: "#f1f1f1",
+                  backgroundColor: "#bcbabaff",
                   fontWeight: "bold",
                   whiteSpace: "nowrap",
                   overflow: "hidden",
@@ -209,7 +203,7 @@ const TabSelectionScreen = () => {
                         padding: "4px 8px",
                         cursor: "pointer",
                         color: "info.main",
-                        fontWeight: "500",
+                        fontWeight: "400",
                         "&:hover": { backgroundColor: "#e3f2fd" },
                       }}
                       onClick={() => handleOpenInputDialog(rowIndex)}
@@ -254,7 +248,7 @@ const TabSelectionScreen = () => {
                     </TableCell>
                   );
                 } else {
-                  const field = `col${colIndex + 2}`;
+                  const field = `col${colIndex + 2}`; // shifted index since Sub Part removed
                   return (
                     <TableCell key={col} sx={{ padding: "4px 8px" }}>
                       <TextField
@@ -291,7 +285,6 @@ const TabSelectionScreen = () => {
         <DialogTitle>Input Item Details</DialogTitle>
         <DialogContent dividers>
           <Box sx={{ mt: 1, display: "flex", flexDirection: "column", gap: 2 }}>
-            {/* Non-editable Input Type */}
             <TextField
               label="Input Type"
               size="small"
@@ -429,10 +422,33 @@ const TabSelectionScreen = () => {
 
   return (
     <>
+      {/* Sub Part Code Dropdown before Tabs */}
+      <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+        <TextField
+          select
+          label="Sub Part Code"
+          size="small"
+          value={selectedSubPart}
+          onChange={(e) => setSelectedSubPart(e.target.value)}
+          sx={{
+            minWidth: 200,
+            "& .MuiOutlinedInput-root": {
+              borderRadius: 0.5, // ⬅️ controls dropdown corner radius
+            },
+          }}
+        >
+          <MenuItem value="SP001">SP001</MenuItem>
+          <MenuItem value="SP002">SP002</MenuItem>
+          <MenuItem value="SP003">SP003</MenuItem>
+        </TextField>
+      </Box>
+
+      {/* Tabs */}
       <Tabs value={tabIndex} onChange={handleTabChange}>
         <Tab label="Process" />
         <Tab label="FG Packing" />
       </Tabs>
+
       <Box hidden={tabIndex !== 0}>{renderTable()}</Box>
       <Box hidden={tabIndex !== 1}>{renderTable()}</Box>
     </>

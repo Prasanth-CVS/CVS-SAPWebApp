@@ -103,7 +103,7 @@ const Header = ({
     p: 1,
     borderRadius: "5px",
     cursor: "pointer",
-    "&:hover": { backgroundColor: "#e0e0e0", color: "#050e60" },
+    "&:hover": { backgroundColor: "#e0e0e0", color: "#059DA3" },
   };
 
   const drawerIconWidth = 75;
@@ -118,7 +118,7 @@ const Header = ({
           },
           ml: { sm: `${isSideIcon ? drawerIconWidth : drawerWidth}px` },
           backgroundColor: "#fff",
-          color: "#050e60",
+          color: "#059DA3",
           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
           pt: { xs: 1, sm: 1 },
           "& > .main-layout-toolbar-spacer": theme.mixins.toolbar,
