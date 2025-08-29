@@ -1,0 +1,26 @@
+/* Container Paper */
+.form-container {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Consistent TextField styling */
+.form-input .MuiOutlinedInput-root {
+  border-radius: 4px; /* uniform 4px corner */
+}
+
+/* Add spacing between grid items (extra margin for clarity) */
+.form-grid-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Adjust responsiveness on very small screens */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 12px;
+  }
+}
